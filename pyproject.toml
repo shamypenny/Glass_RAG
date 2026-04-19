@@ -1,0 +1,38 @@
+[project]
+name = "glass-rag"
+version = "0.1.0"
+description = "Configurable LangChain-based GLASS-RAG backend with MongoDB and Langfuse."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "fastapi>=0.115.0",
+    "langchain>=0.3.0",
+    "langchain-community>=0.3.0",
+    "langchain-core>=0.3.0",
+    "langchain-mongodb>=0.4.0",
+    "langchain-openai>=0.2.0",
+    "langchain-ollama>=0.2.0",
+    "langchain-text-splitters>=0.3.0",
+    "langchain-huggingface>=0.1.0",
+    "langfuse>=3.0.0",
+    "pydantic>=2.9.0",
+    "pymongo>=4.9.0",
+    "pypdf>=5.0.0",
+    "python-docx>=1.1.2",
+    "python-dotenv>=1.0.1",
+    "python-multipart>=0.0.9",
+    "pyyaml>=6.0.2",
+    "uvicorn>=0.30.0",
+]
+
+[project.optional-dependencies]
+ocr = [
+    "pillow>=10.4.0",
+]
+
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["glass_rag"]
