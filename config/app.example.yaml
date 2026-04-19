@@ -1,0 +1,72 @@
+app_name: GLASS-RAG
+environment: dev
+
+mongodb:
+  uri_env: MONGODB_URI
+  database: glass_rag
+  documents_collection: documents
+  chunks_collection: chunks
+  audit_collection: audit_logs
+  sessions_collection: sessions
+  vector_index_name: chunk_vector_index
+  text_search_index_name: chunk_text_search
+  embedding_key: embedding
+  text_key: page_content
+
+langfuse:
+  enabled: true
+  public_key_env: LANGFUSE_PUBLIC_KEY
+  secret_key_env: LANGFUSE_SECRET_KEY
+  host_env: LANGFUSE_BASE_URL
+
+storage:
+  upload_dir: ./data/uploads
+
+security:
+  sensitive_patterns:
+    - "(?i)password\\s*[:=]\\s*\\S+"
+    - "(?i)api[_-]?key\\s*[:=]\\s*\\S+"
+    - "(?i)身份证号[:：]?\\s*[0-9Xx*]{8,}"
+
+pipeline:
+  default_top_k: 8
+  rerank_top_n: 4
+  chunk_size: 1200
+  chunk_overlap: 200
+  title_max_length: 120
+  max_context_chars: 12000
+
+llm_profiles:
+  router:
+    provider: openai
+    model: gpt-4o-mini
+    temperature: 0.0
+  answer:
+    provider: openai
+    model: gpt-4o-mini
+    temperature: 0.1
+  multimodal_parser:
+    provider: openai
+    model: gpt-4o-mini
+    temperature: 0.0
+  metadata_extractor:
+    provider: openai
+    model: gpt-4o-mini
+    temperature: 0.0
+  reranker:
+    provider: openai
+    model: gpt-4o-mini
+    temperature: 0.0
+
+embedding_profiles:
+  default:
+    provider: openai
+    model: text-embedding-3-large
+
+component_bindings:
+  router_llm: router
+  answer_llm: answer
+  parser_llm: multimodal_parser
+  extractor_llm: metadata_extractor
+  reranker_llm: reranker
+  embedding: default
